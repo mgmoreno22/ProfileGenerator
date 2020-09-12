@@ -37,14 +37,6 @@ const employeeQuestions = [
         choices: ["Manager", "Engineer", "Intern"]
     }
 ];
-const roleRedo = [
-    {
-        type: "checkbox",
-        name: "role",
-        message: "What role is this employee?",
-        choices: ["Manager", "Engineer", "Intern"]
-    }
-]
 const managerQ = [
     {
         type: "input",
@@ -70,19 +62,65 @@ const internQ = [
 // ****** BEGINING OF FUNCTIONS *****
 function newEmployee() {
     inquirer.prompt(employeeQuestions).then((data) => {
-        console.log(data);
 
-        // if (data.role[0] === "Manager")
-        
-        // var generatedHtml = render(data)
-        // fs.writeFile(outputPath, generatedHtml, (err) => {
-        //     if (err) {
-        //         return console.log(err)
-        //     }
-        //     console.log("Your file has been generated.")
-        // })
+        if (data.role[0] === "Manager") {
+            inquirer.prompt(managerQ).then((roleData) => {
+                let newManager = new Manager(data.name, data.id, data.email, roleData.officeNum)
+                console.log(newManager);
+                employees.push(newManager)
+                keepAdding()
+            })
+        } else if (data.role[0] === "Engineer") {
+            inquirer.prompt(engineerQ).then((roleData) => {
+                let newEngineer = new Engineer(data.name, data.id, data.email, roleData.github)
+                console.log(newEngineer);
+                employees.push(newEngineer)
+                keepAdding()
+            })
+        } else if (data.role[0] === "Engineer") {
+            inquirer.prompt(engineerQ).then((roleData) => {
+                let newEngineer = new Engineer(data.name, data.id, data.email, roleData.github)
+                console.log(newEngineer);
+                employees.push(newEngineer)
+                keepAdding()
+            })
+        } else if (data.role[0] === "Intern") {
+            inquirer.prompt(internQ).then((roleData) => {
+                let newIntern = new Intern(data.name, data.id, data.email, roleData.school)
+                console.log(newIntern);
+                employees.push(newIntern)
+                keepAdding()
+            })
+        } else {
+            console.log("Something went wrong, please try again")
+            keepAdding()
+        }
     })
 };
+
+function keepAdding() {
+    inquirer.prompt({
+        type: "confirm",
+        name: "continue",
+        message: "Would you like to add another employee? "
+    }).then((response) => {
+        if(response.continue) {
+            console.log()
+            newEmployee()
+        } else {
+            endProgram(employees)
+            console.log("Your file has been generated!")
+        }
+    })
+}
+
+function endProgram(employees) {
+    var generatedHtml = render(employees)
+        fs.writeFile(outputPath, generatedHtml, (err) => {
+            if (err) throw err;
+            console.log("Your file has been generated.")
+        })
+}
 
 newEmployee()
 // Write code to use inquirer to gather information about the development team members,
