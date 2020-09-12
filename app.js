@@ -10,12 +10,69 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+const employeeQuestions = [
+    {
+        type: "input",
+        name: "name",
+        message: "What is the employee's name? "
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "What is the employee's ID? "
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is the employee's email? "
+    },
+    {
+        type: "checkbox",
+        name: "role",
+        message: "What role is this employee?",
+        choices: ["Manager", "Engineer", "Intern"]
+    }
+];
 
+const managerQuestions = [
+    {
+        type: "input",
+        name: "officeNum",
+        message: "Please enter this manager's office number? "
+    }
+];
+
+const engineerQuestions = [
+    {
+        type: "input",
+        name: "github",
+        message: "Please enter this engineer's github username? "
+    }
+];
+
+const internQuestions = [
+    {
+        type: "input",
+        name: "school",
+        message: "Please enter this intern's school? "
+    }
+];
+
+function init() {
+    inquirer.prompt(employeeQuestions).then((data) => {
+        console.log(data);
+        
+        fs.writeFile("./output/employees.txt", data, (err) => {if (err) throw err})
+        console.log("file generated")
+    })
+}
+
+init()
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
 // After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
+// above) and pass in an array containing all employee objects; the `render` function will  
 // generate and return a block of HTML including templated divs for each employee!
 
 // After you have your html, you're now ready to create an HTML file using the HTML
