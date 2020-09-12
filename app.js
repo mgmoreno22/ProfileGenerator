@@ -10,6 +10,10 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+// Array to hold employee info
+const employees = [];
+
+// Questions to be asked in prompts
 const employeeQuestions = [
     {
         type: "input",
@@ -33,24 +37,29 @@ const employeeQuestions = [
         choices: ["Manager", "Engineer", "Intern"]
     }
 ];
-
-const managerQuestions = [
+const roleRedo = [
+    {
+        type: "checkbox",
+        name: "role",
+        message: "What role is this employee?",
+        choices: ["Manager", "Engineer", "Intern"]
+    }
+]
+const managerQ = [
     {
         type: "input",
         name: "officeNum",
         message: "Please enter this manager's office number? "
     }
 ];
-
-const engineerQuestions = [
+const engineerQ = [
     {
         type: "input",
         name: "github",
         message: "Please enter this engineer's github username? "
     }
 ];
-
-const internQuestions = [
+const internQ = [
     {
         type: "input",
         name: "school",
@@ -58,16 +67,22 @@ const internQuestions = [
     }
 ];
 
-function init() {
+// ****** BEGINING OF FUNCTIONS *****
+function newEmployee() {
     inquirer.prompt(employeeQuestions).then((data) => {
         console.log(data);
         
-        fs.writeFile("./output/employees.txt", data, (err) => {if (err) throw err})
-        console.log("file generated")
+        // var generatedHtml = render(data)
+        // fs.writeFile(outputPath, generatedHtml, (err) => {
+        //     if (err) {
+        //         return console.log(err)
+        //     }
+        //     console.log("Your file has been generated.")
+        // })
     })
-}
+};
 
-init()
+newEmployee()
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
