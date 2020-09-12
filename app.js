@@ -71,6 +71,8 @@ const internQ = [
 function newEmployee() {
     inquirer.prompt(employeeQuestions).then((data) => {
         console.log(data);
+
+        // if (data.role[0] === "Manager")
         
         // var generatedHtml = render(data)
         // fs.writeFile(outputPath, generatedHtml, (err) => {
