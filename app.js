@@ -109,17 +109,19 @@ function keepAdding() {
             newEmployee()
         } else {
             endProgram(employees)
-            console.log("Your file has been generated!")
         }
     })
 }
 
 function endProgram(employees) {
+    if (!fs.existsSync(OUTPUT_DIR)) {
+        fs.mkdirSync(OUTPUT_DIR)
+    }
     var generatedHtml = render(employees)
-        fs.writeFile(outputPath, generatedHtml, (err) => {
-            if (err) throw err;
-            console.log("Your file has been generated.")
-        })
+    fs.writeFile(outputPath, generatedHtml, "utf-8", (err) => {
+        if (err) throw err;
+        console.log("Your file has been generated in the output folder.")
+    })
 }
 
 newEmployee()

@@ -1,0 +1,23 @@
+body {
+    background-color: lightgray;
+}
+
+.jumbotron {
+    background-color: #18314F
+}
+
+h1, h2, h3 {
+    color: white;
+}
+
+.m-cardHeader {
+    background-color: #214f4b
+}
+
+.e-cardHeader {
+    background-color: #26532B;
+}
+
+.i-cardHeader {
+    background-color: #399E5A
+}
